@@ -18,10 +18,10 @@ git clone または ZIP ファイルをダウンロードして /app/Plugin デ�
 
 このほか、プラグイン設定画面では下記の2項目も設定可能です。
 
-* エラーメッセージ
-  reCAPTCHA が不審なメール送信を判定したときに表示するメッセージを設定できます。設定値が空白の時は「何らかの理由でメールが送信できませんでした。」と表示されます。
-* バッジ表示設定
-  reCAPTCHA 有効時に画面右下に表示されるバッジ（アイコン）の表示 / 非表示を選択できます。バッジを非表示にするときは、[Google の規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
+* エラーメッセージ  
+reCAPTCHA が不審なメール送信を判定したときに表示するメッセージを設定できます。設定値が空白の時は「何らかの理由でメールが送信できませんでした。」と表示されます。
+* バッジ表示設定  
+reCAPTCHA 有効時に画面右下に表示されるバッジ（アイコン）の表示 / 非表示を選択できます。バッジを非表示にするときは、[Google の規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
 
 ## 更新履歴
 
