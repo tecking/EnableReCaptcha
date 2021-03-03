@@ -12,7 +12,7 @@
 class EnableReCaptchasController extends AppController {
 
 	/**
-	 * クラス名
+	 * クラス
 	 *
 	 * @var string
 	 */

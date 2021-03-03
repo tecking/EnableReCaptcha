@@ -11,14 +11,32 @@
  */
 class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 
+	/**
+	 * イベント
+	 *
+	 * @var array
+	 */
 	public $events = ['Mail.Mail.beforeRender'];
 
+	/**
+	 * コントローラー
+	 *
+	 * @param CakeEvent $event
+	 * @return void
+	 */
 	public function mailMailBeforeRender(CakeEvent $event) {
+		
 		$Controller = $event->subject;
 
+		/**
+		 * モデル
+		 */
 		$Model = ClassRegistry::init('EnableReCaptcha.EnableReCaptchaConfig');
 		$row = $Model->find('first');
 
+		/**
+		 * メール内容確認画面
+		 */
 		if ($Controller->name === 'Mail' && $Controller->request->params['action'] === 'confirm') {
 
 			if ($row['EnableReCaptchaConfig']['error_message'] !== '') {
@@ -27,15 +45,22 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 				$errorMessage = '何らかの理由でメールが送信できませんでした。';
 			}
 
+			/**
+			 * トークン取得
+			 */
 			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $row['EnableReCaptchaConfig']['secret_key'] . '&response=' . $Controller->request->data['MailMessage']['reCaptchaResponse']);
-			
 			$reCaptcha = json_decode($verifyResponse);
+
+			/**
+			 * reCAPTCHA API からのレスポンスが false ならエラーメッセージを設定
+			 */
 			if ($reCaptcha->success) {
 				$Controller->set('siteKey', $row['EnableReCaptchaConfig']['site_key']);
 			} else {
 				$Controller->BcMessage->setError(h($errorMessage));
 				$Controller->set('reCaptcha', $reCaptcha->success);
 			}
+
 		}
 
 	}

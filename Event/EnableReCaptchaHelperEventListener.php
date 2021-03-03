@@ -11,9 +11,18 @@
  */
 class EnableReCaptchaHelperEventListener extends BcHelperEventListener {
 
+	/**
+	 * イベント
+	 *
+	 * @var array
+	 */
 	public $events = ['Form.beforeEnd'];
 	
+	/**
+	 * ヘルパー
+	 */
 	public function formBeforeEnd(CakeEvent $event) {
+
 		if (BcUtil::isAdminSystem()) {
 			return;
 		}
@@ -26,6 +35,7 @@ class EnableReCaptchaHelperEventListener extends BcHelperEventListener {
 
 		$View->Mailform->unlockField('MailMessage.reCaptchaResponse');
 		echo $View->Mailform->hidden('MailMessage.reCaptchaResponse');
+
 	}
 
 }

@@ -12,14 +12,14 @@
 class EnableReCaptchaConfig extends AppModel {
 
 	/**
-	 * クラス名
+	 * クラス
 	 *
 	 * @var string
 	 */
 	public $name = 'EnableReCaptchaConfig';
 
 	/**
-	 * プラグイン名
+	 * プラグイン
 	 *
 	 * @var string
 	 */

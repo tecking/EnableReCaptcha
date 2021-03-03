@@ -11,9 +11,21 @@
  */
 class EnableReCaptchaViewEventListener extends BcViewEventListener {
 
+	/**
+	 * イベント
+	 *
+	 * @var array
+	 */
 	public $events = ['beforeLayout'];
 
+	/**
+	 * ビュー
+	 *
+	 * @param CakeEvent $event
+	 * @return void
+	 */
 	public function beforeLayout(CakeEvent $event) {
+
 		if (BcUtil::isAdminSystem()) {
 			return;
 		}
@@ -25,6 +37,9 @@ class EnableReCaptchaViewEventListener extends BcViewEventListener {
 
 		$content = $View->Blocks->get('content');
 
+		/**
+		 * エラーの時は flash メッセージ以外の content を削除
+		 */
 		if (isset($View->viewVars['reCaptcha']) && $View->viewVars['reCaptcha'] === false) {
 			preg_match('/<div id="flashMessage" class=".+?">.+?<\/div>/', $content, $flashMsg);
 			if (!empty($flashMsg)) {
@@ -34,6 +49,9 @@ class EnableReCaptchaViewEventListener extends BcViewEventListener {
 			}
 		}
 
+		/**
+		 * reCAPTCHA に必要な JavaScript をロード
+		 */
 		if (!empty($row['EnableReCaptchaConfig']['site_key'])) {
 
 			$View->BcBaser->js(
@@ -47,11 +65,15 @@ class EnableReCaptchaViewEventListener extends BcViewEventListener {
 
 		}
 
+		/**
+		 * バッジ非表示設定が true なら CSS をロード
+		 */
 		if ($row['EnableReCaptchaConfig']['hide_badge'] === true) {
 			$View->BcBaser->css('EnableReCaptcha.style', false);
 		}
 
 		$View->Blocks->set('content', $content);
+		
 	}
 
 }
