@@ -12,7 +12,7 @@ git clone または ZIP ファイルをダウンロードして /app/Plugin デ�
 
 ## 使い方
 
-プラグイン利用前に、[reCAPTCHA v3のサイト](https://developers.google.com/recaptcha/docs/v3)でサイトキーとシークレットキーを取得しておいてください。
+プラグイン利用前に、[reCAPTCHA v3 のサイト](https://developers.google.com/recaptcha/docs/v3)でサイトキーとシークレットキーを取得しておいてください。
 
 キーが取得できたら、プラグイン設定画面の「サイトキー」「シークレットキー」欄に入力して保存します。これで、フロント側の全ページで reCAPTCHA v3 が有効化されます。
 
@@ -21,7 +21,7 @@ git clone または ZIP ファイルをダウンロードして /app/Plugin デ�
 * エラーメッセージ
   reCAPTCHA が不審なメール送信を判定したときに表示するメッセージを設定できます。設定値が空白の時は「何らかの理由でメールが送信できませんでした。」と表示されます。
 * バッジ表示設定
-  reCAPTCHA 有効時に画面右下に表示されるバッジ（アイコン）の表示 / 非表示を選択できます。バッジを非表示にするときは、[Googleの規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
+  reCAPTCHA 有効時に画面右下に表示されるバッジ（アイコン）の表示 / 非表示を選択できます。バッジを非表示にするときは、[Google の規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
 
 ## 更新履歴
 
