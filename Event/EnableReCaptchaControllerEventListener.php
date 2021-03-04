@@ -52,7 +52,7 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 			$reCaptcha = json_decode($verifyResponse);
 
 			/**
-			 * reCAPTCHA API からのレスポンスが false または、スコアが 0.5 以下ならエラーメッセージを設定
+			 * reCAPTCHA API からのレスポンスが false または、スコアが 0.5 未満ならエラーメッセージを設定
 			 */
 			if ($reCaptcha->success === false || $reCaptcha->score < 0.5) {
 				$Controller->BcMessage->setError(h($errorMessage));
