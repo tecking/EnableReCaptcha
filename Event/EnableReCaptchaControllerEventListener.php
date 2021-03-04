@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.2.0
+ * @version    0.2.1
  * @license    MIT License
  */
 class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
@@ -52,13 +52,11 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 			$reCaptcha = json_decode($verifyResponse);
 
 			/**
-			 * reCAPTCHA API からのレスポンスが false ならエラーメッセージを設定
+			 * reCAPTCHA API からのレスポンスが false または、スコアが 0.5 以下ならエラーメッセージを設定
 			 */
-			if ($reCaptcha->success) {
-				$Controller->set('siteKey', $row['EnableReCaptchaConfig']['site_key']);
-			} else {
+			if ($reCaptcha->success === false || $reCaptcha->score < 0.5) {
 				$Controller->BcMessage->setError(h($errorMessage));
-				$Controller->set('reCaptcha', $reCaptcha->success);
+				$Controller->set('reCaptcha', false);
 			}
 
 		}
