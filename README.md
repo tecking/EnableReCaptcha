@@ -1,4 +1,4 @@
-# Enable reCAPTCHA v3（reCAPTCHA v3 拡張）
+# Enable reCAPTCHA v3 (reCAPTCHA v3 拡張)
 
 ## これは何?
 
@@ -21,7 +21,7 @@ git clone または ZIP ファイルをダウンロードして /app/Plugin デ�
 * エラーメッセージ  
 reCAPTCHA が不審なメール送信を判定したときに表示するメッセージを設定できます。設定値が空白の時は「何らかの理由でメールが送信できませんでした。」と表示されます。
 * バッジ表示設定  
-reCAPTCHA 有効時に画面右下に表示されるバッジ（アイコン）の表示 / 非表示を選択できます。バッジを非表示にするときは、[Google の規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
+reCAPTCHA 有効時に画面右下に表示されるバッジ (アイコン) の表示 / 非表示を選択できます。バッジを非表示にするときは、[Google の規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
 
 ## 使用上のご留意点
 
@@ -29,7 +29,12 @@ bot による投稿か否かを判定する「スコア」の値は、初期値�
 
 ## 更新履歴
 
-* 0.2.1 ( 2021-03-04 )
+* 0.5.0 (2021-03-06)  
+	* シークレットキーを暗号化して格納するように変更
+	* 不審なメール送信と判定したときの処理を変更
+    	* セッションを破棄
+    	* 例外処理を発生 ``throw new BadRequestException()``;
+* 0.2.1 (2021-03-04)  
 	* bot の判定ロジックを追加
-* 0.2.0 ( 2021-03-03 )
+* 0.2.0 (2021-03-03)
 	* 公開
