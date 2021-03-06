@@ -32,4 +32,47 @@ class EnableReCaptchaConfig extends AppModel {
 	 */
 	public $useDbConfig = 'plugin';
 
+	/**
+	 * 暗号化するフィールド
+	 *
+	 * @var string
+	 */
+	private $encryptedField = 'secret_key';
+
+	/**
+	 * 暗号化メソッド
+	 *
+	 * @var string
+	 */
+	private $method = 'aes-256-ecb';
+
+	/**
+	 * beforeSave
+	 *
+	 * @param array $options
+	 * @return void
+	 */
+	public function beforeSave($options = []) {
+		if (!empty($this->data[$this->alias][$this->encryptedField])) {
+			$this->data[$this->alias][$this->encryptedField] = openssl_encrypt($this->data[$this->alias][$this->encryptedField], $this->method, Configure::read('Security.cipherSeed'));
+		}
+
+		return true;
+	}
+
+	/**
+	 * afterFind
+	 *
+	 * @param [array] $results
+	 * @param boolean $primary
+	 * @return void
+	 */
+	public function afterFind($results, $primary = false) {
+		foreach ($results as $key => $value) {
+			if (@is_array($results[$key][$this->alias])) {
+				$results[$key][$this->alias][$this->encryptedField] = openssl_decrypt($results[$key][$this->alias][$this->encryptedField], $this->method, Configure::read('Security.cipherSeed'));
+			}
+		}
+		return $results;
+	}
 }
