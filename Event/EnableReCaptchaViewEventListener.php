@@ -29,25 +29,18 @@ class EnableReCaptchaViewEventListener extends BcViewEventListener {
 		if (BcUtil::isAdminSystem()) {
 			return;
 		}
-		
+
+		/**
+		 * ビュー
+		 */
 		$View = $event->subject;
-
-		$Model = ClassRegistry::init('EnableReCaptcha.EnableReCaptchaConfig');
-		$row = $Model->find('first');
-
 		$content = $View->Blocks->get('content');
 
 		/**
-		 * エラーの時は flash メッセージ以外の content を削除
+		 * モデル
 		 */
-		if (isset($View->viewVars['reCaptcha']) && $View->viewVars['reCaptcha'] === false) {
-			preg_match('/<div id="flashMessage" class=".+?">.+?<\/div>/', $content, $flashMsg);
-			if (!empty($flashMsg)) {
-				$content = $flashMsg[0];
-			} else {
-				$content = '何らかの理由でメールが送信できませんでした。';
-			}
-		}
+		$Model = ClassRegistry::init('EnableReCaptcha.EnableReCaptchaConfig');
+		$row = $Model->find('first');
 
 		/**
 		 * reCAPTCHA に必要な JavaScript をロード
@@ -61,7 +54,7 @@ class EnableReCaptchaViewEventListener extends BcViewEventListener {
 				false
 			);
 
-			$View->BcHtml->scriptBlock('grecaptcha.ready(function () { grecaptcha.execute("' . $row['EnableReCaptchaConfig']['site_key'] . '",{ action: "homepage" }).then(function(token) { let recaptchaResponse = document.getElementById("MailMessageReCaptchaResponse"); recaptchaResponse.value = token;}); });', ['inline' => false]);
+			$View->BcHtml->scriptBlock('grecaptcha.ready(function () { grecaptcha.execute("' . $row['EnableReCaptchaConfig']['site_key'] . '",{ action: "homepage" }).then(function(token) { let recaptchaResponse = document.getElementById("MailMessageReCaptchaResponse"); if (recaptchaResponse != null) { recaptchaResponse.value = token; } }); });', ['inline' => false]);
 
 		}
 
@@ -69,7 +62,9 @@ class EnableReCaptchaViewEventListener extends BcViewEventListener {
 		 * バッジ非表示設定が true なら CSS をロード
 		 */
 		if ($row['EnableReCaptchaConfig']['hide_badge'] === true) {
+
 			$View->BcBaser->css('EnableReCaptcha.style', false);
+			
 		}
 
 		$View->Blocks->set('content', $content);
