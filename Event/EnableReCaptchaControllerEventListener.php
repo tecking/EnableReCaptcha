@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.5.0
+ * @version    0.6.0
  * @license    MIT License
  */
 class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
@@ -40,9 +40,13 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 		if ($Controller->name === 'Mail' && $Controller->request->params['action'] === 'confirm') {
 
 			if ($row['EnableReCaptchaConfig']['error_message'] !== '') {
+
 				$errorMessage = $row['EnableReCaptchaConfig']['error_message'];
+
 			} else {
+
 				$errorMessage = '何らかの理由でメールが送信できませんでした。';
+
 			}
 
 			/**
@@ -52,11 +56,19 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 			$reCaptcha = json_decode($verifyResponse);
 
 			/**
-			 * reCAPTCHA API からのレスポンスが false または、スコアが 0.5 未満なら例外処理とする
+			 * reCAPTCHA API からのレスポンスが false または、スコアがしきい値 (EnableReCaptcha.threshold) 未満なら例外処理とする
 			 */
-			if ($reCaptcha->success === false || $reCaptcha->score < 0.5) {
+			if (Configure::read('EnableReCaptcha.threshold')) {
+				$threshold = (float) Configure::read('EnableReCaptcha.threshold');
+			} else {
+				$threshold = 0.5;
+			}
+			
+			if ($reCaptcha->success === false || $reCaptcha->score < $threshold) {
+
 				$Controller->Session->delete('Mail');
 				throw new BadRequestException(h($errorMessage));
+
 			}
 
 		}

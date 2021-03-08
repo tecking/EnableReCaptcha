@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.5.0
+ * @version    0.6.0
  * @license    MIT License
  */
 $this->Plugin->initDb('EnableReCaptcha');
