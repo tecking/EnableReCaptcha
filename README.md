@@ -23,18 +23,20 @@ reCAPTCHA が不審なメール送信を判定したときに表示するメッ�
 * バッジ表示設定  
 reCAPTCHA 有効時に画面右下に表示されるバッジ (アイコン) の表示 / 非表示を選択できます。バッジを非表示にするときは、[Google の規定](https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed)に沿ってサイト内にリンク文字列を記述する必要があります。
 
-## 使用上のご留意点
+### しきい値の設定について
 
-bot による投稿か否かを判定する「スコア」の値は、初期値である 0.5 としています。
+bot による投稿か否かを判定する「スコア」のしきい値は Config/setting.php で設定できます。デフォルトは [https://developers.google.com/recaptcha/docs/v3#interpreting_the_score](https://developers.google.com/recaptcha/docs/v3#interpreting_the_score) に示されている 0.5 です。
 
 ## 更新履歴
 
-* 0.5.0 (2021-03-06)  
+* 0.6.0 (2021-03-08)
+	* スコアのしきい値を Config/setting.php で設定できるように変更
+* 0.5.0 (2021-03-06)
 	* シークレットキーを暗号化して格納するように変更
 	* 不審なメール送信と判定したときの処理を変更
     	* セッションを破棄
     	* 例外処理を発生 ``throw new BadRequestException()``
-* 0.2.1 (2021-03-04)  
+* 0.2.1 (2021-03-04)
 	* bot の判定ロジックを追加
 * 0.2.0 (2021-03-03)
 	* 公開
