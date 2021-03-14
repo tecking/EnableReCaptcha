@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.6.0
+ * @version    0.6.1
  * @license    MIT License
  */
 class EnableReCaptchasController extends AppController {
@@ -78,19 +78,28 @@ class EnableReCaptchasController extends AppController {
 		 * データが送信されていれば、データベースを更新
 		 */
 		if (!$this->data) {
+
 			$this->data = $this->EnableReCaptchaConfig->find('first');
+
 		} else {
+
 			$this->EnableReCaptchaConfig->id = $this->data['EnableReCaptchaConfig']['id'];
+
 			if ($this->EnableReCaptchaConfig->save($this->data)) {
+
 				$this->BcMessage->setSuccess('設定を保存しました。');
 				$this->redirect([
 					'plugin' => 'enable_re_captcha',
 					'controller' => 'enable_re_captchas',
 					'action' => 'form'
 				]);
+
 			} else {
+
 				$this->BcMessage->setError('何らかの理由で保存できませんでした。');
+
 			}
+			
 		}
 
 	}
