@@ -6,11 +6,12 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.6.0
+ * @version    0.6.1
  * @license    MIT License
  */
 $config = [
 		'EnableReCaptcha' => [
-			'threshold' => 0.5 // スパム bot と判定するスコアのしきい値
+			'threshold' => 0.5, // スパム bot と判定するスコアのしきい値
+			'encryptionMethod' => 'aes-256-ecb' // サイトシークレットを保存する際の暗号化メソッド
 		]
 	];

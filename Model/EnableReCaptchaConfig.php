@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.6.0
+ * @version    0.6.1
  * @license    MIT License
  */
 class EnableReCaptchaConfig extends AppModel {
@@ -40,13 +40,6 @@ class EnableReCaptchaConfig extends AppModel {
 	private $encryptedField = 'secret_key';
 
 	/**
-	 * 暗号化メソッド
-	 *
-	 * @var string
-	 */
-	private $method = 'aes-256-ecb';
-
-	/**
 	 * beforeSave
 	 *
 	 * @param array $options
@@ -56,7 +49,7 @@ class EnableReCaptchaConfig extends AppModel {
 
 		if (!empty($this->data[$this->alias][$this->encryptedField])) {
 
-			$this->data[$this->alias][$this->encryptedField] = openssl_encrypt($this->data[$this->alias][$this->encryptedField], $this->method, Configure::read('Security.cipherSeed'));
+			$this->data[$this->alias][$this->encryptedField] = openssl_encrypt($this->data[$this->alias][$this->encryptedField], Configure::read('EnableReCaptcha.encryptionMethod'), Configure::read('Security.cipherSeed'));
 
 		}
 
@@ -77,7 +70,7 @@ class EnableReCaptchaConfig extends AppModel {
 
 			if (@is_array($results[$key][$this->alias])) {
 
-				$results[$key][$this->alias][$this->encryptedField] = openssl_decrypt($results[$key][$this->alias][$this->encryptedField], $this->method, Configure::read('Security.cipherSeed'));
+				$results[$key][$this->alias][$this->encryptedField] = openssl_decrypt($results[$key][$this->alias][$this->encryptedField], Configure::read('EnableReCaptcha.encryptionMethod'), Configure::read('Security.cipherSeed'));
 
 			}
 
