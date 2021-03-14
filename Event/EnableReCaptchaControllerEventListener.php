@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.6.0
+ * @version    0.6.1
  * @license    MIT License
  */
 class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
@@ -29,15 +29,15 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 		$Controller = $event->subject;
 
 		/**
-		 * モデル
-		 */
-		$Model = ClassRegistry::init('EnableReCaptcha.EnableReCaptchaConfig');
-		$row = $Model->find('first');
-
-		/**
 		 * メール内容確認画面
 		 */
 		if ($Controller->name === 'Mail' && $Controller->request->params['action'] === 'confirm') {
+
+			/**
+			 * モデル
+			 */
+			$Model = ClassRegistry::init('EnableReCaptcha.EnableReCaptchaConfig');
+			$row = $Model->find('first');
 
 			if ($row['EnableReCaptchaConfig']['error_message'] !== '') {
 
@@ -59,9 +59,13 @@ class EnableReCaptchaControllerEventListener extends BcControllerEventListener {
 			 * reCAPTCHA API からのレスポンスが false または、スコアがしきい値 (EnableReCaptcha.threshold) 未満なら例外処理とする
 			 */
 			if (Configure::read('EnableReCaptcha.threshold')) {
+
 				$threshold = (float) Configure::read('EnableReCaptcha.threshold');
+
 			} else {
+
 				$threshold = 0.5;
+
 			}
 			
 			if ($reCaptcha->success === false || $reCaptcha->score < $threshold) {
