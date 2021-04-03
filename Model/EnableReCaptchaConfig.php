@@ -6,7 +6,7 @@
  * @link       https://github.com/tecking
  * @package    tecking.bcplugins.enable_re_captcha
  * @since      baserCMS v 4.3.7.1
- * @version    0.6.1
+ * @version    0.6.2
  * @license    MIT License
  */
 class EnableReCaptchaConfig extends AppModel {
@@ -30,7 +30,7 @@ class EnableReCaptchaConfig extends AppModel {
 	 *
 	 * @var string
 	 */
-	public $useDbConfig = 'plugin';
+	public $useDbConfig = 'default';
 
 	/**
 	 * 暗号化するフィールド
